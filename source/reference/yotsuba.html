@@ -188,6 +188,35 @@
 </dd></dl>
 
 <dl class="py function">
+<dt id="yotsuba.clean_emoji">
+<code class="sig-prename descclassname">yotsuba.</code><code class="sig-name descname">clean_emoji</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">replace</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#yotsuba.clean_emoji" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace emojis with given string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A text want to clean emojis.</p></li>
+<li><p><strong>replace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Token to replace emaoji, default is ‘’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Cleaned text.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yotsuba</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;🍀yotsuba is a fast nlp🤗 toolkit implemented by Rust.&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">yotsuba</span><span class="o">.</span><span class="n">clean_emoji</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="go">yotsuba is a fast nlp toolkit implemented by Rust.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">yotsuba</span><span class="o">.</span><span class="n">clean_emoji</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;&lt;EMOJI&gt;&#39;</span><span class="p">))</span>
+<span class="go">&lt;EMOJI&gt;yotsuba is a fast nlp&lt;EMOJI&gt; toolkit implemented by Rust.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt id="yotsuba.clean_html_tags">
 <code class="sig-prename descclassname">yotsuba.</code><code class="sig-name descname">clean_html_tags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">replace</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#yotsuba.clean_html_tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace html tags and replace it with given token.</p>
