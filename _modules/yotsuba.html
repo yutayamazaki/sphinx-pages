@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>yotsuba &mdash; yotsuba  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> yotsuba
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/reference/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">yotsuba</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>yotsuba</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for yotsuba</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">yotsuba</span> <span class="kn">import</span> <span class="n">ja</span>
+<span class="kn">from</span> <span class="nn">yotsuba</span> <span class="kn">import</span> <span class="n">yotsuba</span> <span class="k">as</span> <span class="n">ytb</span>  <span class="c1"># type: ignore</span>
+
+
+<div class="viewcode-block" id="clean_emails"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.clean_emails">[docs]</a><span class="k">def</span> <span class="nf">clean_emails</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Replace emails with given string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: A text want to clean emails.</span>
+<span class="sd">        replace: Token to replace emails, default is &#39;&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Cleaned text.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; text: str = &#39;Hello aaa@example.com!&#39;</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.clean_emails(text))</span>
+<span class="sd">        Hello !</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.clean_emails(text, &#39;&lt;URL&gt;&#39;))</span>
+<span class="sd">        Hello &lt;URL&gt;!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">clean_emails</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">replace</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="clean_emoji"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.clean_emoji">[docs]</a><span class="k">def</span> <span class="nf">clean_emoji</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Replace emojis with given string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: A text want to clean emojis.</span>
+<span class="sd">        replace: Token to replace emaoji, default is &#39;&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Cleaned text.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; text: str = &#39;🍀yotsuba is a fast nlp🤗 toolkit implemented by Rust.&#39;</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.clean_emoji(text))</span>
+<span class="sd">        yotsuba is a fast nlp toolkit implemented by Rust.</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.clean_emoji(text, &#39;&lt;EMOJI&gt;&#39;))</span>
+<span class="sd">        &lt;EMOJI&gt;yotsuba is a fast nlp&lt;EMOJI&gt; toolkit implemented by Rust.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">clean_emoji</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">replace</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="clean_html_tags"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.clean_html_tags">[docs]</a><span class="k">def</span> <span class="nf">clean_html_tags</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Replace html tags and replace it with given token.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: A text want to clean html tags.</span>
+<span class="sd">        replace: Token to replace html tags, default is &#39;&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Cleaned text.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; text: str = &#39;aaa&lt;a&gt;bbb&lt;/a&gt;ccc&#39;</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.clean_html_tags(text))</span>
+<span class="sd">        aaabbbccc</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.clean_html_tags(text, &#39;&lt;HTML&gt;&#39;))</span>
+<span class="sd">        aaa&lt;HTML&gt;bbb&lt;HTML&gt;ccc</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">clean_html_tags</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">replace</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="clean_number"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.clean_number">[docs]</a><span class="k">def</span> <span class="nf">clean_number</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Replace sequence of numbers with given string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: A text want to clean number.</span>
+<span class="sd">        replace: Token to replace number, default is &#39;0&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Cleaned text.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; text: str = &#39;I was born in 2020.&#39;</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.clean_number(text))</span>
+<span class="sd">        I was born in 0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">clean_number</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">replace</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="clean_url"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.clean_url">[docs]</a><span class="k">def</span> <span class="nf">clean_url</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Replace urls with given string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: A text want to clean url.</span>
+<span class="sd">        replace: Token to replace url, default is &#39;&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Cleaned text.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; text: str = &#39;Wellcome to  https://github.com/yutayamazaki/yotsuba&#39;</span>
+<span class="sd">        &gt;&gt;&gt; yotsuba.clean_url(text)</span>
+<span class="sd">        &#39;Wellcome to &#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">clean_url</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">replace</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_stopwords"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.get_stopwords">[docs]</a><span class="k">def</span> <span class="nf">get_stopwords</span><span class="p">(</span><span class="n">lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ja&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get stopwords from http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lang: Now, only support &#39;ja&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        List of stopwords with length 310.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; stopwords = yotsuba.get_stopwords(&#39;ja&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; len(stopwords)</span>
+<span class="sd">        310</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">get_stopwords</span><span class="p">(</span><span class="n">lang</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_stopwords_by_frequency"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.get_stopwords_by_frequency">[docs]</a><span class="k">def</span> <span class="nf">get_stopwords_by_frequency</span><span class="p">(</span>
+    <span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">max_freq</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Compute word frequency and return them as stopwords.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        docs: Like [[&#39;I&#39;, &#39;am&#39;, &#39;a&#39;, &#39;dog&#39;], ...].</span>
+<span class="sd">        max_freq: Words with over this frequecny are considered as stopwords.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Computed stopwords.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; docs = [[&#39;I&#39;, &#39;am&#39;, &#39;a&#39;, &#39;dog&#39;], [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;pen&#39;]]</span>
+<span class="sd">        &gt;&gt;&gt; yotsuba.get_stopwords_by_frequency(docs, 2)</span>
+<span class="sd">        [&#39;a&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">get_stopwords_by_frequency</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">max_freq</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="normalize_contraction"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.normalize_contraction">[docs]</a><span class="k">def</span> <span class="nf">normalize_contraction</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Normalize english contractions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: A text to normalize contractions. Text need to be lowerecased.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Normalized text.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; text: str = &quot;i&#39;m it&#39;s&quot;</span>
+<span class="sd">        &gt;&gt;&gt; yotsuba.normalize_contraction(text)</span>
+<span class="sd">        &#39;i am it is&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">normalize_contraction</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pad_sequence"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.pad_sequence">[docs]</a><span class="k">def</span> <span class="nf">pad_sequence</span><span class="p">(</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">maxlen</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;post&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pad sequence with given value like</span>
+<span class="sd">    keras.preprocessing,sequence.pad_sequence.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sequence: Sequence to pad like [0, 3, 1, ...].</span>
+<span class="sd">        maxlen: Maximum length of sequence to pad with.</span>
+<span class="sd">        value: A value to pad, default=0.</span>
+<span class="sd">        padding: &#39;pre&#39; or &#39;post&#39;, default is &#39;post&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Padded sequence which has maxlen length.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.pad_sequence([0, 1, 2], 5))</span>
+<span class="sd">        [0, 1, 2, 0, 0]</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.pad_sequence([0, 1, 2], 5, -1))</span>
+<span class="sd">        [0, 1, 2, -1, -1]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">pad_sequence</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pad_sequences"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.pad_sequences">[docs]</a><span class="k">def</span> <span class="nf">pad_sequences</span><span class="p">(</span>
+    <span class="n">sequences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;post&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pad sequences with given value like</span>
+<span class="sd">    keras.preprocessing,sequence.pad_sequence.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sequences: A list of list to pad like [[0, 1], ...].</span>
+<span class="sd">        maxlen:</span>
+<span class="sd">            Maximum length of sequence to pad with. If None was passed,</span>
+<span class="sd">            pad with maximum size of sequence.</span>
+<span class="sd">        value: A value to pad, default=0.</span>
+<span class="sd">        padding: &#39;pre&#39; or &#39;post&#39;, default is &#39;post&#39;.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Padded sequences which has maxlen length.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.pad_sequences([[0, 1, 2], [0, 1]], 5))</span>
+<span class="sd">        [[0, 1, 2, 0, 0], [0, 1, 0, 0, 0]]</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.pad_sequences([[0, 1, 2], [0, 1]], 5, padding=&#39;pre&#39;))</span>
+<span class="sd">        [[0, 0, 0, 1, 2], [0, 0, 0, 0, 1]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_stopwords"><a class="viewcode-back" href="../source/reference/yotsuba.html#yotsuba.remove_stopwords">[docs]</a><span class="k">def</span> <span class="nf">remove_stopwords</span><span class="p">(</span><span class="n">tokens</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">stopwords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Remove stopwords from given tokens.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tokens: A list of string want to remove stopwords.</span>
+<span class="sd">        stopwords: Specify stopwords to remove.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Stopwords removed tokens.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; tokens = [&#39;I&#39;, &#39;am&#39;, &#39;a&#39;, &#39;dog&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; stopwords = [&#39;a&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; print(yotsuba.remove_stopwords(tokens, stopwords))</span>
+<span class="sd">            [&#39;I&#39;, &#39;am&#39;, &#39;dog&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">remove_stopwords</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">stopwords</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, yutayamazaki
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

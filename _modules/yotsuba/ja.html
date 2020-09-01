@@ -35,8 +35,7 @@
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="yotsuba" href="yotsuba.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,13 +81,9 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="yotsuba.html">yotsuba</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">yotsuba.ja</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/reference/index.html">API Reference</a></li>
 </ul>
 
             
@@ -135,16 +130,14 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="index.html">API Reference</a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../yotsuba.html">yotsuba</a> &raquo;</li>
         
       <li>yotsuba.ja</li>
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../_sources/source/reference/ja.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -156,47 +149,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-yotsuba.ja">
-<span id="yotsuba-ja"></span><h1>yotsuba.ja<a class="headerlink" href="#module-yotsuba.ja" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="yotsuba.ja.normalize_neologd">
-<code class="sig-prename descclassname">yotsuba.ja.</code><code class="sig-name descname">normalize_neologd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/yotsuba/ja.html#normalize_neologd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#yotsuba.ja.normalize_neologd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do preprocessing for mecab-ipadic-neologd.
-<a class="reference external" href="https://github.com/neologd/mecab-ipadic-neologd/wiki/Regexp.ja">https://github.com/neologd/mecab-ipadic-neologd/wiki/Regexp.ja</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Text to apply normalizing.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Normalized text.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yotsuba</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;南アルプスの　天然水　Ｓｐａｒｋｉｎｇ　Ｌｅｍｏｎ　レモン一絞り&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">yotsuba</span><span class="o">.</span><span class="n">ja</span><span class="o">.</span><span class="n">normalize_neologd</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-<span class="go">&#39;南アルプスの天然水Sparking Lemonレモン一絞り&#39;</span>
+  <h1>Source code for yotsuba.ja</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">yotsuba</span> <span class="kn">import</span> <span class="n">yotsuba</span> <span class="k">as</span> <span class="n">ytb</span>  <span class="c1"># type: ignore</span>
+
+
+<div class="viewcode-block" id="normalize_neologd"><a class="viewcode-back" href="../../source/reference/ja.html#yotsuba.ja.normalize_neologd">[docs]</a><span class="k">def</span> <span class="nf">normalize_neologd</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Do preprocessing for mecab-ipadic-neologd.</span>
+<span class="sd">    https://github.com/neologd/mecab-ipadic-neologd/wiki/Regexp.ja</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: Text to apply normalizing.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Normalized text.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import yotsuba</span>
+<span class="sd">        &gt;&gt;&gt; text: str = &#39;南アルプスの　天然水　Ｓｐａｒｋｉｎｇ　Ｌｅｍｏｎ　レモン一絞り&#39;</span>
+<span class="sd">        &gt;&gt;&gt; yotsuba.ja.normalize_neologd(text)</span>
+<span class="sd">        &#39;南アルプスの天然水Sparking Lemonレモン一絞り&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ytb</span><span class="o">.</span><span class="n">ja</span><span class="o">.</span><span class="n">normalize_neologd</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 </pre></div>
-</div>
-</dd></dl>
-
-</div>
-
 
            </div>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="yotsuba.html" class="btn btn-neutral float-left" title="yotsuba" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
